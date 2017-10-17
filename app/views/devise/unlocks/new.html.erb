@@ -1,0 +1,25 @@
+
+<%= render "devise/shared/brand" %>
+
+<div class="login-panel panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Resend unlock instructions</h3>
+  </div>
+  <div class="panel-body">
+    <%= bootstrap_form_for(resource,
+                            as: resource_name,
+                            url: unlock_path(resource_name),
+                            html: { method: :post }) do |f| %>
+      <fieldset>
+        <%= f.email_field :email, label: 'Email', autofocus: true %>
+        <div class="actions">
+          <%= f.submit "Resend unlock instructions", class: 'btn btn-success btn-block' %>
+        </div>
+      </fieldset>
+    <% end %>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+
+<div class="actions-top">
+  <%= link_to new_user_path, :class => 'btn btn-primary btn-sm' do %>
+    <i class="fa fa-plus"></i> Add a user
+  <% end %>
+</div>
+
+<div class="table-responsive hidden-xs">
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Administrator</th>
+        <th>Last sign-in</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %> </td>
+        <td><%= user.email %> </td>
+        <td><%= yes_no_icon(user.admin) %> </td>
+        <td><%= user.current_sign_in_at %> </td>
+        <td>
+          <%= link_to user_path(user), :class => '' do %>
+            <i class="fa fa-info-circle"></i> View details
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<ul class="list-group list-group-striped hidden-sm hidden-md hidden-lg">
+  <% @users.each do |user| %>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <%= link_to user_path(user), :class => 'btn btn-primary btn-outline btn-xs' do %>
+        <i class="fa fa-info-circle"></i> View details
+      <% end %>
+    </div>
+    <strong><%= user.name %></strong><br/>
+    <%= user.email %><br/>
+    <small><i>Last signed in at <%= user.current_sign_in_at ||= '... never' %></i></small>
+  </li>
+  <% end %>
+</ul>

@@ -1,0 +1,30 @@
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <dl class="show">
+      <dt>First name</dt>
+      <dd><%= @user.first_name %></dd>
+      <dt>Last name</dt>
+      <dd><%= @user.last_name %></dd>
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+      <dt>Administrator</dt>
+      <dd><%= yes_no_icon(@user.admin) %></dd>
+    </dl>
+    
+    <div class="actions-bottom">
+      <%= form_for @user, method: :delete do |f| %>
+        <%= link_to users_path, :class => 'btn btn-outline btn-default btn-sm' do %>
+          <i class="fa fa-reply"></i> Back to users
+        <% end %>
+        <%= link_to edit_user_path(@user), :class => 'btn btn-primary btn-sm' do %>
+          <i class="fa fa-edit"></i> Edit details
+        <% end %>
+        <%= button_tag(type: "submit", class: "btn btn-sm btn-danger btn-outline sweet-confirm") do %>
+          <i class="fa fa-times"></i> Delete user
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

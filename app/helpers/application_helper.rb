@@ -1,5 +1,14 @@
 module ApplicationHelper
 
+  def yes_no_icon(value)
+    if value then
+      content_tag(:span, " ", class: ["fa", "fa-check", "text-success"])
+    else
+      content_tag(:span, " ", class: ["fa", "fa-times", "text-danger"])
+    end
+  end
+
+
   #
   # Toastr messages used for application flashes
   #
@@ -27,5 +36,5 @@ module ApplicationHelper
 
     flash_messages.join("\n").html_safe
   end
-  
+
 end

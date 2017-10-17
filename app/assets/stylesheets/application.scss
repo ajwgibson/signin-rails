@@ -21,3 +21,41 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+
+ .actions-top {
+   margin-top:    20px;
+   padding-bottom: 20px;
+   margin-bottom: 20px;
+   border-bottom:  solid 1px #eee;
+ }
+
+ .actions-bottom {
+   margin-top:    20px;
+   margin-bottom: 20px;
+   .btn {
+     min-width: 100px;
+   }
+ }
+
+ dl.show {
+  dt {
+    color: lighten(#333, 25%);
+    font-weight: normal;
+  }
+  dd {
+    margin-bottom: 20px;
+    font-size:     1.4em;
+  }
+}
+
+.middle-box {
+  margin-top: 80px;
+  h1 {
+    color: lighten(#333, 25%);
+  }
+}
+
+.login-panel {
+  margin-top: 40px !important;
+}
