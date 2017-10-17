@@ -1,0 +1,26 @@
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <dl class="show">
+      <dt>First name</dt>
+      <dd><%= @sign_in_record.first_name %></dd>
+      <dt>Last name</dt>
+      <dd><%= @sign_in_record.last_name %></dd>
+      <dt>Room</dt>
+      <dd><%= @sign_in_record.room %></dd>
+      <dt>Label</dt>
+      <dd><samp><%= @sign_in_record.label %></samp></dd>
+      <dt>Date &amp; time</dt>
+      <dd><%= local_time(@sign_in_record.sign_in_time) %></dd>
+      <dt>Newcomer</dt>
+      <dd><%= yes_no_icon(@sign_in_record.newcomer) %></dd>
+    </dl>
+
+    <div class="actions-bottom">
+      <%= link_to sign_in_records_path, :class => 'btn btn-outline btn-default btn-sm' do %>
+        <i class="fa fa-reply"></i> Back to list
+      <% end %>
+    </div>
+  </div>
+</div>

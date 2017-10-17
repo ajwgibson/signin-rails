@@ -30,4 +30,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  TrueClass: "Yes"
+  FalseClass: "No"
+  date:
+    formats:
+      short: "%d/%m/%Y"
+  time:
+    formats:
+      short: "%d/%m/%Y %H:%M"
+      date:  "%d/%m/%Y"

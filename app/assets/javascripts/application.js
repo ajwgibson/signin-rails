@@ -17,6 +17,7 @@
 //= require sb-admin-2/sb-admin-2.js
 //= require toastr
 //= require sweetalert
+//= require local-time
 //= require_tree .
 
 

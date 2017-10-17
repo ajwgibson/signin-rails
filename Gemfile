@@ -25,6 +25,7 @@ gem 'bootstrap_form'
 gem 'toastr-rails'
 gem 'sweetalert-rails'
 gem "paperclip"
+gem 'local_time'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

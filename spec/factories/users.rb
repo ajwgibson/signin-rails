@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
 
   factory :default_user, parent: :user do
-    email                 { Faker::Internet.email }
+    email                 { Faker::Internet.safe_email }
     password              "password"
     password_confirmation "password"
     first_name            Faker::Name.first_name

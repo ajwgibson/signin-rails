@@ -1,0 +1,49 @@
+<div class="actions-top">
+</div>
+
+<div class="table-responsive hidden-xs">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>Date &amp; time</th>
+        <th>Label</th>
+        <th>Newcomer</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sign_in_records.each do |record| %>
+      <tr>
+        <td><%= record.name %> </td>
+        <td><%= record.room %> </td>
+        <td><%= local_time(record.sign_in_time, :short) %> </td>
+        <td><samp><%= record.label %></samp> </td>
+        <td><%= yes_no_icon(record.newcomer) %> </td>
+        <td>
+          <%= link_to sign_in_record_path(record), :class => '' do %>
+            <i class="fa fa-info-circle"></i> View details
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<ul class="list-group list-group-striped hidden-sm hidden-md hidden-lg">
+  <% @sign_in_records.each do |record| %>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <%= link_to sign_in_record_path(record), :class => 'btn btn-primary btn-outline btn-xs' do %>
+        <i class="fa fa-info-circle"></i> View details
+      <% end %>
+    </div>
+    <strong><%= record.name %></strong><br/>
+    <%= record.room %><br/>
+    <samp><%= record.label %></samp><br/>
+    <small><%= local_time(record.sign_in_time, :short) %></small>
+  </li>
+  <% end %>
+</ul>

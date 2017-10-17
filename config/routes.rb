@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   end
   resources  :users
 
+  resources  :sign_in_records
+
 end
