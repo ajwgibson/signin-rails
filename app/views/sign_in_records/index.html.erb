@@ -1,4 +1,96 @@
 <div class="actions-top">
+  <div class="pull-right">
+    <a class="btn btn-<%= @filter.except(:order_by).empty? ? "default" : "warning btn-outline" %>"
+       data-toggle="collapse" data-target="#filter">
+      <i class="fa fa-filter"></i> Filter
+      <span class="caret"></span>
+    </a>
+  </div>
+  &nbsp;
+</div>
+
+<div class="row hidden-print">
+  <div class="col-xs-12">
+    <div id="filter" class="collapse">
+      <div class="panel panel-default">
+        <div class="panel-body">
+        <%= form_tag sign_in_records_path, method: :get, class: "filter" do |f| %>
+          <%= hidden_field_tag :order_by, @filter[:order_by] %>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= label_tag :with_first_name, 'First name contains', :class => 'control-label' %>
+                <%= text_field_tag :with_first_name, @filter[:with_first_name], :class => 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= label_tag :with_last_name, 'Last name contains', :class => 'control-label' %>
+                <%= text_field_tag :with_last_name, @filter[:with_last_name], :class => 'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= label_tag :is_newcomer, 'Just newcomers', :class => 'control-label' %>
+                <div class="checkbox">
+                  <%= label_tag :is_newcomer  do %>
+                    <%= check_box_tag :is_newcomer, true, @filter[:is_newcomer] %> Yes
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= label_tag :for_today, 'Today only', :class => 'control-label' %>
+                <div class="checkbox">
+                  <%= label_tag :for_today  do %>
+                    <%= check_box_tag :for_today, true, @filter[:for_today] %> Yes
+                  <% end %>
+                </div>
+              </div>
+              <div class="form-group date days">
+                <%= label_tag :on_or_after, 'On or after', :class => 'control-label' %>
+                <div class="input-group date">
+                  <span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
+                  <%= text_field_tag :on_or_after,
+                                    (l(@filter[:on_or_after], :format => :date) if @filter.has_key?(:on_or_after)),
+                                    :placeholder => 'dd/mm/yyyy',
+                                    :class => 'form-control date' %>
+                </div>
+              </div>
+              <div class="form-group date days">
+                <%= label_tag :on_or_before, 'On or before', :class => 'control-label' %>
+                <div class="input-group date">
+                  <span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
+                  <%= text_field_tag :on_or_before,
+                                    (l(@filter[:on_or_before], :format => :date) if @filter.has_key?(:on_or_before)),
+                                    :placeholder => 'dd/mm/yyyy',
+                                    :class => 'form-control date' %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <%= label_tag :in_room, 'Room', :class => 'control-label' %>
+                <%= select_tag :in_room,
+                      options_for_select(@rooms, @filter[:in_room]),
+                      { prompt: "Please select a value...", class: 'form-control' } %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group pull-right">
+                <%= link_to sign_in_records_clear_filter_path, :class => 'btn btn-default' do %>
+                  <i class="fa fa-times"></i> Clear filter
+                <% end %>
+                <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+                  <i class="fa fa-filter"></i> Apply filter
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="table-responsive hidden-xs">
@@ -21,7 +113,7 @@
         <td><%= local_time(record.sign_in_time, :short) %> </td>
         <td><samp><%= record.label %></samp> </td>
         <td><%= yes_no_icon(record.newcomer) %> </td>
-        <td>
+        <td align="right">
           <%= link_to sign_in_record_path(record), :class => '' do %>
             <i class="fa fa-info-circle"></i> View details
           <% end %>

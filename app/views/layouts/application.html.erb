@@ -64,6 +64,11 @@
                 <i class="fa fa-dashboard fa-fw"> </i> Dashboard
               <% end %>
             </li>
+            <li>
+              <%= link_to(sign_in_records_path) do %>
+                <i class="fa fa-check-square-o fa-fw"> </i> Sign in records
+              <% end %>
+            </li>
             <% if can? :manage, User %>
             <li>
               <%= link_to(users_path) do %>
