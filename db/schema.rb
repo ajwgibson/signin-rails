@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017195925) do
+ActiveRecord::Schema.define(version: 20171018184956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "sign_in_record_imports", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.integer "success_count"
+    t.integer "error_count"
+    t.string "upload_file_file_name"
+    t.string "upload_file_content_type"
+    t.integer "upload_file_file_size"
+    t.datetime "upload_file_updated_at"
+    t.string "error_file_file_name"
+    t.string "error_file_content_type"
+    t.integer "error_file_file_size"
+    t.datetime "error_file_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "sign_in_records", force: :cascade do |t|
     t.string "first_name", null: false

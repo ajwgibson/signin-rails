@@ -9,6 +9,15 @@ module ApplicationHelper
   end
 
 
+  def import_status(value)
+    style = 'default'
+    style = 'info'    if value.running?
+    style = 'success' if value.complete? && value.error_count == 0
+    style = 'danger'  if value.complete? && value.error_count > 0
+    content_tag(:span, value.status.titlecase, class: ["label", "label-#{style}"])
+  end
+
+
   #
   # Toastr messages used for application flashes
   #

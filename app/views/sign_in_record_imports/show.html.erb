@@ -1,0 +1,36 @@
+
+<div class="row">
+  <div class="col-xs-12">
+
+    <dl class="show">
+      <dt>Date &amp; time</dt>
+      <dd><%= local_time(@sign_in_record_import.created_at) %></dd>
+      <dt>Status</dt>
+      <dd><%= import_status(@sign_in_record_import) %></dd>
+      <dt>Import count</dt>
+      <dd><%= @sign_in_record_import.success_count ||= 'N/A' %></dd>
+      <dt>Error count</dt>
+      <dd><%= @sign_in_record_import.error_count ||= 'N/A' %></dd>
+      <dt>Upload file</dt>
+      <dd>
+        <%= link_to @sign_in_record_import.upload_file.url do %>
+        <i class="fa fa-file-excel-o"></i> View upload file
+        <% end %>
+      </dd>
+      <% if @sign_in_record_import.error_file.exists? %>
+      <dt>Upload file</dt>
+      <dd>
+        <%= link_to @sign_in_record_import.error_file.url do %>
+        <i class="fa fa-file-excel-o"></i> View error file
+        <% end %>
+      </dd>
+      <% end %>
+    </dl>
+
+    <div class="actions-bottom">
+      <%= link_to sign_in_record_imports_path, :class => 'btn btn-outline btn-default btn-sm' do %>
+        <i class="fa fa-reply"></i> Back to list
+      <% end %>
+    </div>
+  </div>
+</div>

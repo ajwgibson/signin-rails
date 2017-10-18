@@ -1,0 +1,43 @@
+
+<div class="table-responsive hidden-xs">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Created at</th>
+        <th>Status</th>
+        <th>Import count</th>
+        <th>Error count</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sign_in_record_imports.each do |record| %>
+      <tr>
+        <td><%= local_time(record.created_at, :short) %> </td>
+        <td><%= import_status(record) %> </td>
+        <td><%= record.success_count %> </td>
+        <td><%= record.error_count %> </td>
+        <td align="right">
+          <%= link_to sign_in_record_import_path(record), :class => '' do %>
+            <i class="fa fa-info-circle"></i> View details
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<ul class="list-group list-group-striped hidden-sm hidden-md hidden-lg">
+  <% @sign_in_record_imports.each do |record| %>
+  <li class="list-group-item">
+    <div class="pull-right">
+      <%= link_to sign_in_record_import_path(record), :class => 'btn btn-primary btn-outline btn-xs' do %>
+        <i class="fa fa-info-circle"></i> View details
+      <% end %>
+    </div>
+    <strong><%= local_time(record.created_at, :short) %></strong><br/>
+    <%= import_status(record) %>
+  </li>
+  <% end %>
+</ul>

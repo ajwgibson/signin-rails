@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get 'sign_in_records/clear_filter'
   resources  :sign_in_records
 
+  resources  :sign_in_record_imports
+
 end

@@ -69,6 +69,11 @@
                 <i class="fa fa-check-square-o fa-fw"> </i> Sign in records
               <% end %>
             </li>
+            <li>
+              <%= link_to(sign_in_record_imports_path) do %>
+                <i class="fa fa-upload fa-fw"> </i> Sign in record imports
+              <% end %>
+            </li>
             <% if can? :manage, User %>
             <li>
               <%= link_to(users_path) do %>
