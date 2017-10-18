@@ -56,4 +56,16 @@ RSpec.describe SignInRecordImportsController, type: :controller do
   end
 
 
+  describe "GET #new" do
+    it "renders a blank form" do
+      get :new
+      expect(response).to render_template :new
+      expect(response).to have_http_status(:success)
+      expect(assigns(:sign_in_record_import).id).to be_nil
+      expect(assigns(:title)).to eq('Import sign in records')
+      expect(assigns(:cancel_path)).to eq(sign_in_record_imports_path)
+    end
+  end
+
+
 end

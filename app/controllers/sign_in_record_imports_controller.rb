@@ -5,8 +5,8 @@ class SignInRecordImportsController < ApplicationController
 
   def index
     @title = 'Sign in record imports'
-    @sign_in_records = SignInRecordImport.order(created_at: :desc)
-    @sign_in_records = @sign_in_records.page(params[:page])
+    @sign_in_record_imports = SignInRecordImport.order(created_at: :desc)
+    @sign_in_record_imports = @sign_in_record_imports.page(params[:page])
   end
 
 
@@ -15,8 +15,22 @@ class SignInRecordImportsController < ApplicationController
   end
 
 
+  def new
+    @title = 'Import sign in records'
+    @cancel_path = sign_in_record_imports_path
+  end
 
-private
-  
+
+  def create
+    @sign_in_record_import = SignInRecordImport.new({ upload_file: params[:upload_file] })
+    if @sign_in_record_import.save
+      redirect_to( { action: 'index' }, notice: 'Import created successfully' )
+    else
+      @title       = 'Import sign in records'
+      @cancel_path = sign_in_record_imports_path
+      render :new
+    end
+  end
+
 
 end

@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12 col-md-8 col-lg-6">
+
+    <p class="text-muted">
+      Simply upload a CSV file that contains valid sign in records.
+    </p>
+
+    <%= render partial: "errors", object: @sign_in_record_import, as: 'form' %>
+
+    <%= bootstrap_form_tag url: sign_in_record_imports_path,
+          method: :post, html: { multipart: true } do |f| %>
+
+      <%= f.file_field  :upload_file, label: 'CSV File', accept: 'text/csv' %>
+
+      <div class="form-group" style="margin-top: 20px;">
+        <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+          <i class="fa fa-check"></i> Save
+        <% end %>
+        <%= link_to @cancel_path, :class => 'btn btn-default' do %>
+          <i class="fa fa-times"></i> Cancel
+        <% end %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
