@@ -8,7 +8,11 @@ class ImportSigninRecordsJob < ApplicationJob
 
     record = SignInRecordImport.find(import_id)
 
-    record.running!
+    record.update({
+      status: :running,
+      success_count: 0,
+      error_count: 0
+    })
 
     CSV::HeaderConverters[:sign_in] = lambda { |s|
       s = 'label'            if s == 'Id'
@@ -21,7 +25,6 @@ class ImportSigninRecordsJob < ApplicationJob
       s
     }
 
-    imports = 0
     errors  = []
 
     CSV.foreach(record.upload_file.path,
@@ -40,10 +43,11 @@ class ImportSigninRecordsJob < ApplicationJob
               .first_or_initialize(row.to_hash.except('update_required'))
           if r.new_record?
             r.save!
-            imports = imports + 1
+            record.update({success_count: record.success_count + 1})
           end
         rescue
           errors << original
+          record.update({error_count: record.error_count + 1})
         end
 
       end
@@ -61,11 +65,7 @@ class ImportSigninRecordsJob < ApplicationJob
       end
     end
 
-    record.update({
-      success_count: imports,
-      error_count:   errors.count,
-      status:        :complete
-    })
+    record.complete!
 
   end
 
