@@ -1,6 +1,3 @@
-Id,First,Last,UpdateRequired
-11,Lauren,Conway,
-12,Emily,Henderson,
-13,Sienna,Yates,True
-14,Harrison,Carroll,
-15,Taylor,Palmer,
+Id,First,Last,Room,SignedInAt,IsNewcomer,UpdateRequired
+401,John,Smith,Allstars,20/11/2016 27:32:22,True,True
+401,,Smith,Allstars,20/11/2016 11:32:22,False,True

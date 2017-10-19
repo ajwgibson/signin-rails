@@ -24,6 +24,7 @@ class SignInRecordImportsController < ApplicationController
   def create
     @sign_in_record_import = SignInRecordImport.new({ upload_file: params[:upload_file] })
     if @sign_in_record_import.save
+      ImportSigninRecordsJob.perform_later @sign_in_record_import.id
       redirect_to( { action: 'index' }, notice: 'Import created successfully' )
     else
       @title       = 'Import sign in records'
