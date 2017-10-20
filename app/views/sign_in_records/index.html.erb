@@ -10,7 +10,7 @@
     <i class="fa fa-upload"></i> Import data
   <% end %>
 </div>
-  
+
 
 <div class="row hidden-print">
   <div class="col-xs-12">
@@ -45,6 +45,16 @@
                   <%= label_tag :for_today  do %>
                     <%= check_box_tag :for_today, true, @filter[:for_today] %> Yes
                   <% end %>
+                </div>
+              </div>
+              <div class="form-group date days">
+                <%= label_tag :for_date, 'For a specific date', :class => 'control-label' %>
+                <div class="input-group date">
+                  <span class="input-group-addon date"><i class="fa fa-calendar"></i></span>
+                  <%= text_field_tag :for_date,
+                                    (l(@filter[:for_date], :format => :date) if @filter.has_key?(:for_date)),
+                                    :placeholder => 'dd/mm/yyyy',
+                                    :class => 'form-control date' %>
                 </div>
               </div>
               <div class="form-group date days">

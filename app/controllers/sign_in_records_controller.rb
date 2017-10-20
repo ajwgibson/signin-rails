@@ -39,12 +39,14 @@ private
           :for_today,
           :on_or_after,
           :on_or_before,
+          :for_date,
         ).to_h
     filter = session[:filter_sign_in_records].symbolize_keys! if filter.empty? && session.key?(:filter_sign_in_records)
     filter = { :order_by => 'sign_in_time desc' } if filter.empty?
     filter.delete_if { |key, value| value.blank? }
     filter[:on_or_after]  = DateTime.parse(filter[:on_or_after])  if filter.key?(:on_or_after)
     filter[:on_or_before] = DateTime.parse(filter[:on_or_before]) if filter.key?(:on_or_before)
+    filter[:for_date]     = DateTime.parse(filter[:for_date])     if filter.key?(:for_date)
     filter
   end
 

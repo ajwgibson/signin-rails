@@ -81,6 +81,10 @@ RSpec.describe SignInRecordsController, type: :controller do
       expect(SignInRecord).to receive(:on_or_before).with(Date.new(2017,2,1)).and_return(records)
       get :index, params: { on_or_before: '01/02/2017' }
     end
+    it "applies the 'for_date' filter" do
+      expect(SignInRecord).to receive(:for_date).with(Date.new(2017,2,1)).and_return(records)
+      get :index, params: { for_date: '01/02/2017' }
+    end
     context "when the default page size is set to 30" do
       context "with no explicit page value" do
         it "returns the first page of records" do
