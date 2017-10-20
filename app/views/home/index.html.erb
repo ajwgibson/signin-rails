@@ -27,17 +27,17 @@
               </div>
               <div class="col-xs-9 text-right">
                 <div class="huge"><%= @child_count %> </div>
-                <div><%= 'Child'.pluralize(@child_count) %> in total</div>
+                <div><%= 'Child'.pluralize(@child_count) %></div>
               </div>
             </div>
           </div>
-          <a href="">
+          <%= link_to sign_in_records_path(for_date: @date) do %>
             <div class="panel-footer">
               <span class="pull-left">View details</span>
               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
               <div class="clearfix"></div>
             </div>
-          </a>
+          <% end %>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">
@@ -45,21 +45,21 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-3">
-                <i class="fa fa-lightbulb-o fa-5x"></i>
+                <i class="fa fa-smile-o fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
                 <div class="huge"><%= @newcomer_count %></div>
-                <div>New <%= 'child'.pluralize(@newcomer_count) %></div>
+                <div><%= 'Newcomer'.pluralize(@newcomer_count) %></div>
               </div>
             </div>
           </div>
-          <a href="">
+          <%= link_to sign_in_records_path(for_date: @date, is_newcomer: true) do %>
             <div class="panel-footer">
               <span class="pull-left">View details</span>
               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
               <div class="clearfix"></div>
             </div>
-          </a>
+          <% end %>
         </div>
       </div>
       <div class="col-lg-3 col-md-6">
