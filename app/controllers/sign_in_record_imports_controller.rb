@@ -4,19 +4,19 @@ class SignInRecordImportsController < ApplicationController
 
 
   def index
-    @title = 'Sign in record imports'
+    @title = 'Import records'
     @sign_in_record_imports = SignInRecordImport.order(created_at: :desc)
     @sign_in_record_imports = @sign_in_record_imports.page(params[:page])
   end
 
 
   def show
-    @title = 'Sign in record import details'
+    @title = 'Import details'
   end
 
 
   def new
-    @title = 'Import sign in records'
+    @title = 'Import data'
     @cancel_path = sign_in_record_imports_path
   end
 
@@ -27,7 +27,7 @@ class SignInRecordImportsController < ApplicationController
       ImportSigninRecordsJob.perform_later @sign_in_record_import.id
       redirect_to( { action: 'index' }, notice: 'Import created successfully' )
     else
-      @title       = 'Import sign in records'
+      @title       = 'Import data'
       @cancel_path = sign_in_record_imports_path
       render :new
     end

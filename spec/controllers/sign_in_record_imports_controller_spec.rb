@@ -16,7 +16,7 @@ RSpec.describe SignInRecordImportsController, type: :controller do
     end
     it "sets the page title" do
       get :index
-      expect(assigns(:title)).to eq('Sign in record imports')
+      expect(assigns(:title)).to eq('Import records')
     end
     it "populates an array of records" do
       record = FactoryGirl.create(:pending_sign_in_record_import)
@@ -46,7 +46,7 @@ RSpec.describe SignInRecordImportsController, type: :controller do
       expect(response).to render_template :show
       expect(response).to have_http_status(:success)
       expect(assigns(:sign_in_record_import).id).to eq(record.id)
-      expect(assigns(:title)).to eq('Sign in record import details')
+      expect(assigns(:title)).to eq('Import details')
     end
     it "raises an exception for a missing record" do
       assert_raises(ActiveRecord::RecordNotFound) do
@@ -62,7 +62,7 @@ RSpec.describe SignInRecordImportsController, type: :controller do
       expect(response).to render_template :new
       expect(response).to have_http_status(:success)
       expect(assigns(:sign_in_record_import).id).to be_nil
-      expect(assigns(:title)).to eq('Import sign in records')
+      expect(assigns(:title)).to eq('Import data')
       expect(assigns(:cancel_path)).to eq(sign_in_record_imports_path)
     end
   end
