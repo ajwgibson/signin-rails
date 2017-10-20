@@ -18,6 +18,7 @@
 //= require toastr
 //= require sweetalert
 //= require local-time
+//= require chartjs/Chart.bundle.min.js
 //= require_tree .
 
 

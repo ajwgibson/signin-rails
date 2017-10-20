@@ -1,3 +1,154 @@
-<p>
-  Hello world!
-</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="dropdown pull-right">
+      <button class="btn btn-default btn-outline btn-xs dropdown-toggle" id="categoryMenu"
+              type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+        <i><%= @date.strftime("%A #{@date.day.ordinalize} %B %Y") %></i>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="categoryMenu">
+        <% @dates.each do |d| %>
+          <li><%= link_to d.strftime("%A #{d.day.ordinalize} %B %Y"), root_path(date: d.to_s) %></li>
+        <% end %>
+      </ul>
+    </div>
+    Showing data for <%= @date.strftime("%A #{@date.day.ordinalize} %B %Y") %>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fa fa-child fa-5x"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                <div class="huge"><%= @child_count %> </div>
+                <div><%= 'Child'.pluralize(@child_count) %> in total</div>
+              </div>
+            </div>
+          </div>
+          <a href="">
+            <div class="panel-footer">
+              <span class="pull-left">View details</span>
+              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-3">
+                <i class="fa fa-lightbulb-o fa-5x"></i>
+              </div>
+              <div class="col-xs-9 text-right">
+                <div class="huge"><%= @newcomer_count %></div>
+                <div>New <%= 'child'.pluralize(@newcomer_count) %></div>
+              </div>
+            </div>
+          </div>
+          <a href="">
+            <div class="panel-footer">
+              <span class="pull-left">View details</span>
+              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="fa fa-bar-chart-o fa-fw"></i> Numbers by room
+          </div>
+          <div class="panel-body">
+            <canvas id="SignInRecordsByRoom" width="50" height="50"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-bar-chart-o fa-fw"></i> Historic data
+  </div>
+  <div class="panel-body">
+    <canvas id="HistoricData" height="100"></canvas>
+  </div>
+</div>
+
+
+<%= javascript_tag do %>
+
+  $(function() {
+
+    new Chart("SignInRecordsByRoom", {
+      type: 'pie',
+      data: {
+        labels: <%= raw @room_counts.keys %>,
+        datasets: [{
+          data: <%= raw @room_counts.values %>,
+          backgroundColor: normal_colours,
+          hoverBackgroundColor: highlight_colours,
+        }]
+      },
+      options: pieChartOptions
+    });
+
+    new Chart("HistoricData", {
+      type: 'line',
+      data: {
+        datasets: [{
+          fill: false,
+          data: [
+          <% @historic_counts.each do |key,value| %>
+            { t: '<%= key.to_s %>', y: <%= value %> },
+          <% end %>
+          ],
+          borderColor: colours['green']['normal'],
+        }]
+      },
+      options: {
+        legend: { display: false },
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: { unit: 'month' }
+          }]
+        }
+      }
+    });
+
+  });
+
+  var colours = {
+    blue:   { normal: "rgba(93,  165, 218, 1)", highlight: "rgba(93,  165, 218, 0.9)", lowlight: "rgba(93,  165, 218, 0.5)" },
+    orange: { normal: "rgba(250, 164, 58,  1)", highlight: "rgba(250, 164, 58,  0.9)", lowlight: "rgba(250, 164, 58,  0.5)" },
+    green:  { normal: "rgba(96,  189, 104, 1)", highlight: "rgba(96,  189, 104, 0.9)", lowlight: "rgba(96,  189, 104, 0.5)" },
+    pink:   { normal: "rgba(241, 124, 176, 1)", highlight: "rgba(241, 124, 176, 0.9)", lowlight: "rgba(241, 124, 176, 0.5)" },
+    brown:  { normal: "rgba(178, 145, 47,  1)", highlight: "rgba(178, 145, 47,  0.9)", lowlight: "rgba(178, 145, 47,  0.5)" },
+    purple: { normal: "rgba(178, 118, 178, 1)", highlight: "rgba(178, 118, 178, 0.9)", lowlight: "rgba(178, 118, 178, 0.5)" },
+    yellow: { normal: "rgba(222, 207, 63,  1)", highlight: "rgba(222, 207, 63,  0.9)", lowlight: "rgba(222, 207, 63,  0.5)" },
+    red:    { normal: "rgba(241, 88,  84,  1)", highlight: "rgba(241, 88,  84,  0.9)", lowlight: "rgba(241, 88,  84,  0.5)" },
+    gray:   { normal: "rgba(77,  77,  77,  1)", highlight: "rgba(77,  77,  77,  0.9)", lowlight: "rgba(77,  77,  77,  0.5)" },
+  };
+
+  var normal_colours    = Object.values(colours).map(function(item) { return item['normal']; });
+  var highlight_colours = Object.values(colours).map(function(item) { return item['highlight']; });
+
+  var pieChartOptions = {
+    legend: {
+      position: 'bottom',
+      display: false
+    }
+  };
+
+<% end %>
