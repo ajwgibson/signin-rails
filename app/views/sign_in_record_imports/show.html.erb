@@ -3,14 +3,20 @@
   <div class="col-xs-12">
 
     <dl class="show">
-      <dt>Date &amp; time</dt>
-      <dd><%= local_time(@sign_in_record_import.created_at) %></dd>
+      <dt>Started at</dt>
+      <dd><%= local_time(@sign_in_record_import.started_at, :long) %></dd>
+      <dt>Finished at</dt>
+      <dd><%= @sign_in_record_import.finished_at.nil? ? '' : local_time(@sign_in_record_import.finished_at, :long) %> </dd>
       <dt>Status</dt>
       <dd><%= import_status(@sign_in_record_import) %></dd>
       <dt>Import count</dt>
-      <dd><%= @sign_in_record_import.success_count ||= 'N/A' %></dd>
+      <dd><%= @sign_in_record_import.success_count.nil? ? 'N/A'
+              : number_with_delimiter(@sign_in_record_import.success_count, delimiter: ',') %>
+      </dd>
       <dt>Error count</dt>
-      <dd><%= @sign_in_record_import.error_count ||= 'N/A' %></dd>
+      <dd><%= @sign_in_record_import.error_count.nil? ? 'N/A'
+              : number_with_delimiter(@sign_in_record_import.error_count, delimiter: ',')%>
+      </dd>
       <dt>Upload file</dt>
       <dd>
         <%= link_to @sign_in_record_import.upload_file.url do %>

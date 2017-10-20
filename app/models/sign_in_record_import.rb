@@ -9,4 +9,14 @@ class SignInRecordImport < ApplicationRecord
 
   enum status: [ :pending, :running, :complete ]
 
+
+  def started_at
+    created_at
+  end
+
+
+  def finished_at
+    return updated_at if complete?
+  end
+
 end
