@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV.fetch("SIGNIN-RAILS_DATABASE") { nil } %>
-  username: <%= ENV.fetch("SIGNIN-RAILS_DATABASE_USERNAME") { nil } %>
-  password: <%= ENV.fetch("SIGNIN-RAILS_DATABASE_PASSWORD") { nil } %>
+  database: <%= ENV.fetch("SIGNIN_RAILS_DATABASE") { nil } %>
+  username: <%= ENV.fetch("SIGNIN_RAILS_DATABASE_USERNAME") { nil } %>
+  password: <%= ENV.fetch("SIGNIN_RAILS_DATABASE_PASSWORD") { nil } %>
