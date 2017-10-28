@@ -15,13 +15,15 @@ class ImportSigninRecordsJob < ApplicationJob
     })
 
     CSV::HeaderConverters[:sign_in] = lambda { |s|
-      s = 'label'            if s == 'Id'
+      s = 'id'               if s == 'Id'
       s = 'first_name'       if s == 'First'
       s = 'last_name'        if s == 'Last'
       s = 'room'             if s == 'Room'
       s = 'sign_in_time'     if s == 'SignedInAt'
+      s = 'label'            if s == 'Label'
       s = 'newcomer'         if s == 'IsNewcomer'
       s = 'update_required'  if s == 'UpdateRequired'
+      s = 'medical_flag'     if s == 'MedicalFlag'
       s
     }
 
@@ -39,8 +41,8 @@ class ImportSigninRecordsJob < ApplicationJob
 
         begin
           r = SignInRecord
-              .where(row.to_hash.except('update_required'))
-              .first_or_initialize(row.to_hash.except('update_required'))
+              .where(row.to_hash.except('update_required', 'id', 'medical_flag'))
+              .first_or_initialize(row.to_hash.except('update_required', 'id', 'medical_flag'))
           if r.new_record?
             r.save!
             record.update({success_count: record.success_count + 1})
@@ -56,7 +58,7 @@ class ImportSigninRecordsJob < ApplicationJob
 
     if errors.count > 0
       CSV.generate() do |csv|
-        csv << ['Id', 'First', 'Last', 'Room', 'SignedInAt', 'IsNewcomer', 'UpdateRequired']
+        csv << ['Id', 'First', 'Last', 'Room', 'SignedInAt', 'Label', 'IsNewcomer', 'UpdateRequired']
         errors.each { |row| csv << row }
         file = StringIO.new(csv.string)
         record.error_file = file
@@ -75,7 +77,7 @@ class ImportSigninRecordsJob < ApplicationJob
     def parse_sign_in_time(sign_in_time)
       if !sign_in_time.blank?
         begin
-          return DateTime.strptime(sign_in_time, '%d/%m/%Y %H:%M:%S')
+          return DateTime.strptime(sign_in_time, '%Y-%m-%d %H:%M:%S %Z')
         rescue ArgumentError
         end
       end

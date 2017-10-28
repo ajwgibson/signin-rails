@@ -1,3 +1,3 @@
-Id,First,Last,Room,SignedInAt,IsNewcomer,UpdateRequired
-401,John,Smith,Allstars,20/11/2016 27:32:22,True,True
-401,,Smith,Allstars,20/11/2016 11:32:22,False,True
+Id,First,Last,Room,SignedInAt,Label,IsNewcomer,UpdateRequired,MedicalFlag
+401,John,Smith,Allstars,20/11/2016 27:32:22,A01,True,True,False
+401,,Smith,Allstars,20/11/2016 11:32:22,A02,False,True,False
